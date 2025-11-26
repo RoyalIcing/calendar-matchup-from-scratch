@@ -45,10 +45,10 @@
           c.font = fontBase;
           ch = c.measureText("0").width;
 
-          canvas.width = 56 * ch * dpr;
+          canvas.width = 36 * ch * dpr;
           canvas.height = 6 * lh * dpr;
           if (dpr > 1) {
-            canvas.style.width = 56 * ch + "px";
+            canvas.style.width = 36 * ch + "px";
             canvas.style.height = 6 * lh + "px";
           }
         }
@@ -60,14 +60,13 @@
 
         c.font = fontItalic;
         c.fillStyle = "crimson";
-        c.fillText("Monday", 4 * ch, 0.5 * lh);
-        c.fillText("Tuesday", 12 * ch, 0.5 * lh);
-        c.fillText("Wednesday", 20 * ch, 0.5 * lh);
-        c.fillText("Thursday", 28 * ch, 0.5 * lh);
-        c.fillText("Friday", 36 * ch, 0.5 * lh);
-        c.fillText("Saturday", 44 * ch, 0.5 * lh);
-        c.fillText("Sunday", 52 * ch, 0.5 * lh);
-
+        c.fillText("Mon", 3 * ch, 0.5 * lh);
+        c.fillText("Tue", 8 * ch, 0.5 * lh);
+        c.fillText("Wed", 13 * ch, 0.5 * lh);
+        c.fillText("Thu", 18 * ch, 0.5 * lh);
+        c.fillText("Fri", 23 * ch, 0.5 * lh);
+        c.fillText("Sat", 28 * ch, 0.5 * lh);
+        c.fillText("Sun", 33 * ch, 0.5 * lh);
         c.strokeStyle = "crimson";
         c.beginPath();
         c.moveTo(0, lh);
@@ -91,7 +90,7 @@
         for (let day = 1; day <= 31; day++) {
           c.fillText(
             `${day}`,
-            (4 + 8 * ((day - 1) % 7)) * ch,
+            (3 + 5 * ((day - 1) % 7)) * ch,
             (1.5 + Math.floor((day - 1) / 7)) * lh
           );
         }
