@@ -39,6 +39,7 @@
         padding: 0 0.5em;
         color: crimson;
         font-weight: 400;
+        font-style: italic;
       }
 
       td {
@@ -46,6 +47,88 @@
       }
     }
   </style>
+  <script type="module">
+    function isLeapYear(year) {
+      return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+    }
+
+    function daysInMonth(year, month) {
+      if (month === 2) {
+        return 28 + (isLeapYear(year) ? 1 : 0);
+      }
+      return [4, 6, 9, 11].includes(month) ? 30 : 31;
+    }
+
+    function dayOfWeek(year, month, day) {
+      if (month < 3) {
+        month = month + 12;
+        year = year - 1;
+      }
+
+      const k = year % 100;
+      const j = Math.floor(year / 100);
+
+      const weekday =
+        (day +
+          Math.floor((13 * (month + 1)) / 5) +
+          k +
+          Math.floor(k / 4) +
+          Math.floor(j / 4) +
+          5 * j) %
+        7;
+
+      // Adjust the result to make Sunday 0 instead of Saturday 0
+      return ((weekday + 5) % 7) + 1;
+    }
+
+    class CalendarTable extends HTMLElement {
+      connectedCallback() {
+        if (this.querySelector("table")) return;
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const todayDay = today.getDate();
+
+        const d = this.ownerDocument;
+        const tbody = d.createElement("tbody");
+        let row = d.createElement("tr");
+
+        const firstWeekday = dayOfWeek(year, month, 1);
+        if (firstWeekday > 1) {
+          const cell = d.createElement("td");
+          cell.colSpan = firstWeekday - 1;
+          row.appendChild(cell);
+        }
+
+        const totalDays = daysInMonth(today.getMonth() + 1);
+        const todayWeekday = dayOfWeek(year, month, todayDay);
+
+        for (let day = 1; day <= totalDays; day++) {
+          const weekday = dayOfWeek(year, month, day);
+          if (weekday === 1 && day !== 1) {
+            if (row) tbody.appendChild(row);
+            row = d.createElement("tr");
+          }
+
+          const cell = d.createElement("td");
+          cell.textContent = `${day}`;
+          row.append(cell);
+        }
+
+        const table = d.createElement("table");
+
+        const thead = d
+          .querySelector("template#calendar-table-thead")
+          .content.cloneNode(true);
+
+        table.append(thead, tbody);
+
+        this.append(table);
+      }
+    }
+    customElements.define("calendar-table", CalendarTable);
+  </script>
   <body>
     <calendar-table>
       <table>
@@ -62,48 +145,65 @@
         </thead>
         <tbody>
           <tr>
+            <td colspan="5"></td>
             <td>1</td>
             <td>2</td>
+          </tr>
+          <tr>
             <td>3</td>
             <td>4</td>
             <td>5</td>
             <td>6</td>
             <td>7</td>
-          </tr>
-          <tr>
             <td>8</td>
             <td>9</td>
+          </tr>
+          <tr>
             <td>10</td>
             <td>11</td>
             <td>12</td>
             <td>13</td>
             <td>14</td>
-          </tr>
-          <tr>
             <td>15</td>
             <td>16</td>
+          </tr>
+          <tr>
             <td>17</td>
             <td>18</td>
             <td>19</td>
             <td>20</td>
             <td>21</td>
-          </tr>
-          <tr>
             <td>22</td>
             <td>23</td>
+          </tr>
+          <tr>
             <td>24</td>
             <td>25</td>
             <td>26</td>
             <td>27</td>
             <td>28</td>
-          </tr>
-          <tr>
             <td>29</td>
             <td>30</td>
+          </tr>
+          <tr>
             <td>31</td>
           </tr>
         </tbody>
       </table>
     </calendar-table>
+    <template id="calendar-table-thead">
+      <thead>
+        <tr>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+        </tr>
+      </thead>
+    </template>
+    <calendar-table></calendar-table>
   </body>
 </html>

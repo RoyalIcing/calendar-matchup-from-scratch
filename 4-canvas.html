@@ -25,42 +25,40 @@
     }
   </style>
   <script type="module">
+    const fontBase = "1em system-ui";
+    const fontItalic = `italic ${fontBase}`;
+
     class CalendarCanvas extends HTMLElement {
       connectedCallback() {
-        const lh = parseFloat(window.getComputedStyle(this).lineHeight);
+        const d = this.ownerDocument;
+        const w = d.defaultView || window;
 
-        const dpr = (this.ownerDocument.defaultView || window).devicePixelRatio;
+        const lh = parseFloat(w.getComputedStyle(this).lineHeight);
+        const dpr = w.devicePixelRatio;
 
-        const canvas = this.ownerDocument.createElement("canvas");
-        this.appendChild(canvas);
+        const canvas = d.createElement("canvas");
+        this.append(canvas);
 
+        const c = canvas.getContext("2d");
+        let ch = 16;
         {
-          const c = canvas.getContext("2d");
-          c.font = "1em system-ui";
-
-          const measure0 = c.measureText("0");
-          console.log(measure0);
-          var ch = measure0.width;
-          // var lh = measure0.emHeightAscent + measure0.emHeightDescent;
-          // var lh =
-          //   measure0.fontBoundingBoxAscent + measure0.fontBoundingBoxDescent;
-          console.log(lh);
+          c.font = fontBase;
+          ch = c.measureText("0").width;
 
           canvas.width = 56 * ch * dpr;
           canvas.height = 6 * lh * dpr;
-          canvas.style.width = 56 * ch + "px";
-          canvas.style.height = 6 * lh + "px";
+          if (dpr > 1) {
+            canvas.style.width = 56 * ch + "px";
+            canvas.style.height = 6 * lh + "px";
+          }
         }
 
-        const c = canvas.getContext("2d");
-        c.font = "1em system-ui";
         c.textAlign = "center";
         c.textBaseline = "middle";
 
         c.scale(dpr, dpr);
-        // canvas.style.zoom = "0.5";
-        // canvas.style.transform = "scale(0.5)";
 
+        c.font = fontItalic;
         c.fillStyle = "crimson";
         c.fillText("Monday", 4 * ch, 0.5 * lh);
         c.fillText("Tuesday", 12 * ch, 0.5 * lh);
@@ -88,6 +86,7 @@
         c.lineTo(100_000_000, 5 * lh);
         c.stroke();
 
+        c.font = fontBase;
         c.fillStyle = "black";
         for (let day = 1; day <= 31; day++) {
           c.fillText(

@@ -23,7 +23,8 @@
         box-shadow: 0 0 1px 1px blue;
       }
 
-      text {
+      text,
+      tspan {
         text-anchor: middle;
         dominant-baseline: middle;
       }
@@ -33,13 +34,27 @@
     <calendar-svg>
       <svg width="56ch" height="6lh">
         <g fill="crimson">
-          <text x="4ch" y="0.5lh">Monday</text>
-          <text x="12ch" y="0.5lh">Tuesday</text>
-          <text x="20ch" y="0.5lh">Wednesday</text>
-          <text x="28ch" y="0.5lh">Thursday</text>
-          <text x="36ch" y="0.5lh">Friday</text>
-          <text x="44ch" y="0.5lh">Saturday</text>
-          <text x="52ch" y="0.5lh">Sunday</text>
+          <text x="4ch" y="0.5lh">
+            <tspan font-style="italic">Monday</tspan>
+          </text>
+          <text x="12ch" y="0.5lh">
+            <tspan font-style="italic">Tuesday</tspan>
+          </text>
+          <text x="20ch" y="0.5lh">
+            <tspan font-style="italic">Wednesday</tspan>
+          </text>
+          <text x="28ch" y="0.5lh">
+            <tspan font-style="italic">Thursday</tspan>
+          </text>
+          <text x="36ch" y="0.5lh">
+            <tspan font-style="italic">Friday</tspan>
+          </text>
+          <text x="44ch" y="0.5lh">
+            <tspan font-style="italic">Saturday</tspan>
+          </text>
+          <text x="52ch" y="0.5lh">
+            <tspan font-style="italic">Sunday</tspan>
+          </text>
           <line y1="1lh" x2="100%" y2="1lh" fill="none" stroke="crimson" />
         </g>
         <g>
