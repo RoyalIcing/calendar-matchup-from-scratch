@@ -7,7 +7,8 @@
       font-family: system-ui, sans-serif;
       font-size: calc(max(100%, min(2vw, 150%)));
       line-height: 1.5;
-      background: color-mix(in srgb, crimson 3%, white);
+      color: white;
+      background: color-mix(in srgb, crimson 4%, black);
     }
     body {
       margin: 1lh;
@@ -86,7 +87,7 @@
         c.stroke();
 
         c.font = fontBase;
-        c.fillStyle = "black";
+        c.fillStyle = "white";
         for (let day = 1; day <= 31; day++) {
           c.fillText(
             `${day}`,

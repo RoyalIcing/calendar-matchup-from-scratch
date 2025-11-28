@@ -13,7 +13,8 @@
       font-family: system-ui, sans-serif;
       font-size: calc(max(100%, min(2vw, 150%)));
       line-height: 1.5;
-      background: color-mix(in srgb, crimson 3%, white);
+      color: white;
+      background: color-mix(in srgb, crimson 4%, black);
     }
     body {
       margin: 1lh;
@@ -50,12 +51,14 @@
       }
 
       section {
+        overflow: hidden;
         display: grid;
         grid-template-columns: repeat(7, 1fr);
 
         > * {
           padding: 0 0.5em;
           border-bottom: 1px solid crimson;
+          margin-bottom: -1px;
         }
 
         calendar-weekday {
@@ -71,10 +74,17 @@
     }
 
     function daysInMonth(year, month) {
-      if (month === 2) {
-        return 28 + (isLeapYear(year) ? 1 : 0);
+      switch (month) {
+        case 2:
+          return 28 + (isLeapYear(year) ? 1 : 0);
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+          return 30;
+        default:
+          return 31;
       }
-      return [4, 6, 9, 11].includes(month) ? 30 : 31;
     }
 
     function dayOfWeek(year, month, day) {
@@ -149,8 +159,6 @@
 
     class CalendarGrid extends HTMLElement {
       connectedCallback() {
-        if (this.querySelector("table")) return;
-
         const today = new Date();
         const year = today.getFullYear();
         const month = today.getMonth() + 1;

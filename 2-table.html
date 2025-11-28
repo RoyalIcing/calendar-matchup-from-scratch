@@ -3,11 +3,18 @@
   <meta charset="utf-8" />
   <title>Calendar: Table</title>
   <style>
+    * {
+      font-size: 1em;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+    }
     :root {
       font-family: system-ui, sans-serif;
       font-size: calc(max(100%, min(2vw, 150%)));
       line-height: 1.5;
-      background: color-mix(in srgb, crimson 3%, white);
+      color: white;
+      background: color-mix(in srgb, crimson 4%, black);
     }
     body {
       margin: 1lh;
@@ -33,6 +40,7 @@
 
         button {
           position: absolute;
+          top: 0;
           height: 100%;
           font-size: 1em;
           padding: 0;
@@ -73,10 +81,17 @@
     }
 
     function daysInMonth(year, month) {
-      if (month === 2) {
-        return 28 + (isLeapYear(year) ? 1 : 0);
+      switch (month) {
+        case 2:
+          return 28 + (isLeapYear(year) ? 1 : 0);
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+          return 30;
+        default:
+          return 31;
       }
-      return [4, 6, 9, 11].includes(month) ? 30 : 31;
     }
 
     function dayOfWeek(year, month, day) {
@@ -191,7 +206,7 @@
           new Date(year, month - 1)
         );
 
-        this.querySelector("slot[name=monthYear]").replaceChildren(captionText);
+        this.querySelector("h2").replaceChildren(captionText);
 
         this.querySelector("tbody").replaceChildren(
           ...renderWeekRows(this.ownerDocument, year, month)
@@ -300,9 +315,6 @@
             <td>29</td>
             <td>30</td>
           </tr>
-          <tr>
-            <td>31</td>
-          </tr>
         </tbody>
       </table>
     </calendar-table>
@@ -350,7 +362,7 @@
             <path d="m15 18-6-6 6-6" />
           </svg>
         </button>
-        <slot name="monthYear">November 2025</slot>
+        <h2>November 2025</h2>
         <button type="button" name="next">
           <svg
             width="1em"
