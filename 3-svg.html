@@ -84,20 +84,7 @@
         year = year - 1;
       }
 
-      const k = year % 100;
-      const j = Math.floor(year / 100);
-
-      const weekday =
-        (day +
-          Math.floor((13 * (month + 1)) / 5) +
-          k +
-          Math.floor(k / 4) +
-          Math.floor(j / 4) +
-          5 * j) %
-        7;
-
-      // Adjust the result to make Sunday 0 instead of Saturday 0
-      return ((weekday + 5) % 7) + 1;
+      return (day + Math.floor(2.6 * (month + 1)) + year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400) + 6) % 7 || 7;
     }
 
     const svgURI = "http://www.w3.org/2000/svg";
