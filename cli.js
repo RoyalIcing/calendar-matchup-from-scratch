@@ -24,7 +24,7 @@ function dayOfWeek(year, month, day) {
     year = year - 1;
   }
 
-  return (day + Math.floor(2.6 * (month + 1)) + year + (year >> 2) - (year / 100 | 0) + (year / 400 | 0) + 6) % 7 || 7;
+  return (day + Math.floor(2.6 * (month + 1)) + year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400) + 6) % 7 || 7;
 }
 
 function* renderDays(year, month) {
