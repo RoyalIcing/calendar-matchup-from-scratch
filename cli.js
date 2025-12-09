@@ -27,11 +27,16 @@ function dayOfWeek(year, month, day) {
   return (day + Math.floor(2.6 * (month + 1)) + year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400) + 6) % 7 || 7;
 }
 
-function* renderDays(year, month) {
-  const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
-    weekday: "short",
-  });
+const monthYearFormatter = new Intl.DateTimeFormat(undefined, {
+  month: "long",
+  year: "numeric",
+});
 
+const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
+  weekday: "short",
+});
+
+function* renderDays(year, month) {
   for (let offset = 0; offset < 7; offset++) {
     yield weekdayFormatter.format(new Date(2000, 0, 3 + offset));
     yield " ";
@@ -82,14 +87,6 @@ const year = today.getFullYear();
 const month = today.getMonth() + 1;
 let state = new CalendarState(year, month);
 
-// Initialize counter
-let counter = 10;
-
-const monthYearFormatter = new Intl.DateTimeFormat(undefined, {
-  month: "long",
-  year: "numeric",
-});
-
 // Configure stdin to read raw input
 process.stdin.setRawMode(true);
 process.stdin.resume();
@@ -110,12 +107,10 @@ process.stdin.on('data', (key) => {
   if (key === '\x1b[C') {
     // Right arrow - increment
     state = state.next();
-    counter++;
     updateDisplay();
   } else if (key === '\x1b[D') {
     // Left arrow - decrement
     state = state.previous();
-    counter--;
     updateDisplay();
   }
 });
