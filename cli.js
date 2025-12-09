@@ -24,20 +24,7 @@ function dayOfWeek(year, month, day) {
     year = year - 1;
   }
 
-  const k = year % 100;
-  const j = Math.floor(year / 100);
-
-  const weekday =
-    (day +
-      Math.floor((13 * (month + 1)) / 5) +
-      k +
-      Math.floor(k / 4) +
-      Math.floor(j / 4) +
-      5 * j) %
-    7;
-
-  // Adjust the result to make Sunday 0 instead of Saturday 0
-  return ((weekday + 5) % 7) + 1;
+  return (day + Math.floor(2.6 * (month + 1)) + year + (year >> 2) - (year / 100 | 0) + (year / 400 | 0) + 6) % 7 || 7;
 }
 
 function* renderDays(year, month) {
