@@ -126,8 +126,8 @@
 
       for (let day = 1; day <= totalDays; day++) {
         const weekday = dayOfWeek(year, month, day);
-        if (weekday === 1 && day !== 1) {
-          if (row) yield row;
+        if (weekday === 1 && day > 1) {
+          yield row;
           row = d.createElement("tr");
         }
 

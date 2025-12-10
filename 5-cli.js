@@ -87,29 +87,31 @@ const year = today.getFullYear();
 const month = today.getMonth() + 1;
 let state = new CalendarState(year, month);
 
-// Configure stdin to read raw input
 process.stdin.setRawMode(true);
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
-// Clear screen and display initial value
 console.clear();
 updateDisplay();
 
+const Keys = {
+  controlC: '\u0003',
+  q: 'q',
+  rightArrow: '\x1b[C',
+  leftArrow: '\x1b[D'
+}
+
 // Listen for keypress events
 process.stdin.on('data', (key) => {
-  // Ctrl+C to exit
-  if (key === '\u0003' || key === 'q') {
+  // Ctrl+C or q to exit
+  if (key === Keys.controlC || key === Keys.q) {
     process.exit();
   }
 
-  // Check for arrow keys (escape sequences)
-  if (key === '\x1b[C') {
-    // Right arrow - increment
+  if (key === Keys.rightArrow) {
     state = state.next();
     updateDisplay();
-  } else if (key === '\x1b[D') {
-    // Left arrow - decrement
+  } else if (key === Keys.leftArrow) {
     state = state.previous();
     updateDisplay();
   }

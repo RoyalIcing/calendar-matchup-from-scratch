@@ -108,8 +108,8 @@
         const weekday = dayOfWeek(year, month, day);
         const weekOffset = 1 + Math.floor((day + firstWeekday - 2) / 7);
 
-        if (weekday === 1 && day !== 1) {
-          if (weekGroup) {
+        if (weekday === 1 && day > 1) {
+          {
             const line = d.createElementNS(svgURI, "line");
             line.setAttribute("y1", `${weekOffset}lh`);
             line.setAttribute("y2", `${weekOffset}lh`);
