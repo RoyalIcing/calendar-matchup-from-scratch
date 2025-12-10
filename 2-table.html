@@ -147,15 +147,15 @@
       }
 
       previous() {
-        const year = this.year - (this.month === 1 ? 1 : 0);
-        const month = this.month === 1 ? 12 : this.month - 1;
-        return new CalendarState(year, month);
+        return this.month === 1
+          ? new CalendarState(this.year - 1, 12)
+          : new CalendarState(this.year, this.month - 1);
       }
 
       next() {
-        const year = this.year + (this.month === 12 ? 1 : 0);
-        const month = this.month === 12 ? 1 : this.month + 1;
-        return new CalendarState(year, month);
+        return this.month === 12
+          ? new CalendarState(this.year + 1, 1)
+          : new CalendarState(this.year, this.month + 1);
       }
     }
 
