@@ -8,7 +8,6 @@
       font-weight: 400;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
     :root {
       font-family: system-ui, sans-serif;
@@ -118,14 +117,14 @@
 
       let weekdayOfFirstDay = dayOfWeek(year, month, 1);
       while (weekdayOfFirstDay > 1) {
-        yield d.createElement("div");
+        yield d.createElement("calendar-day");
         weekdayOfFirstDay--;
       }
 
       const totalDays = daysInMonth(year, month);
 
       for (let day = 1; day <= totalDays; day++) {
-        const cell = d.createElement("div");
+        const cell = d.createElement("calendar-day");
         cell.textContent = `${day}`;
         yield cell;
       }
@@ -251,42 +250,42 @@
         <calendar-weekday>Fri</calendar-weekday>
         <calendar-weekday>Sat</calendar-weekday>
         <calendar-weekday>Sun</calendar-weekday>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>11</div>
-        <div>12</div>
-        <div>13</div>
-        <div>14</div>
-        <div>15</div>
-        <div>16</div>
-        <div>17</div>
-        <div>18</div>
-        <div>19</div>
-        <div>20</div>
-        <div>21</div>
-        <div>22</div>
-        <div>23</div>
-        <div>24</div>
-        <div>25</div>
-        <div>26</div>
-        <div>27</div>
-        <div>28</div>
-        <div>29</div>
-        <div>30</div>
-        <div>31</div>
+        <calendar-day></calendar-day>
+        <calendar-day></calendar-day>
+        <calendar-day></calendar-day>
+        <calendar-day></calendar-day>
+        <calendar-day></calendar-day>
+        <calendar-day>1</calendar-day>
+        <calendar-day>2</calendar-day>
+        <calendar-day>3</calendar-day>
+        <calendar-day>4</calendar-day>
+        <calendar-day>5</calendar-day>
+        <calendar-day>6</calendar-day>
+        <calendar-day>7</calendar-day>
+        <calendar-day>8</calendar-day>
+        <calendar-day>9</calendar-day>
+        <calendar-day>10</calendar-day>
+        <calendar-day>11</calendar-day>
+        <calendar-day>12</calendar-day>
+        <calendar-day>13</calendar-day>
+        <calendar-day>14</calendar-day>
+        <calendar-day>15</calendar-day>
+        <calendar-day>16</calendar-day>
+        <calendar-day>17</calendar-day>
+        <calendar-day>18</calendar-day>
+        <calendar-day>19</calendar-day>
+        <calendar-day>20</calendar-day>
+        <calendar-day>21</calendar-day>
+        <calendar-day>22</calendar-day>
+        <calendar-day>23</calendar-day>
+        <calendar-day>24</calendar-day>
+        <calendar-day>25</calendar-day>
+        <calendar-day>26</calendar-day>
+        <calendar-day>27</calendar-day>
+        <calendar-day>28</calendar-day>
+        <calendar-day>29</calendar-day>
+        <calendar-day>30</calendar-day>
+        <calendar-day>31</calendar-day>
       </section>
     </template>
 
